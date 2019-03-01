@@ -17,6 +17,20 @@
     padding-left: 0px;
 }
 
+.logout-button {
+    float: right;
+    background: #844AE4;
+    border-radius: 4px;
+    border: 0px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 10px;
+    height: 40px;
+    width: auto !important;
+}
+
 .btn-primary {
     width: auto !important;
 }

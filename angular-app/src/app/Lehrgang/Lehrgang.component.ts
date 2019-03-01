@@ -70,11 +70,11 @@ export class LehrgangComponent implements OnInit {
   }
   var access_token = getCookie('access_token');
   if (!access_token) {
-    this.router.navigateByUrl('/Login');
+    window.location.href="http://localhost:3000/auth/google";
   } else {
     var matches = access_token.match(/^s:(.+?)\./);
     if (!matches) {
-      this.router.navigateByUrl('/Login');
+      window.location.href="http://localhost:3000/auth/google";
     } else {
       console.log("Correct Access Token");
     }

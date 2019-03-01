@@ -18,6 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Body } from '@angular/http/src/body';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class DataService<Type> {
@@ -26,7 +27,7 @@ export class DataService<Type> {
     private headers: Headers;
     private access_token: string;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private router: Router) {
         this.actionUrl = 'http://localhost:3000/api/';
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
@@ -49,11 +50,11 @@ export class DataService<Type> {
         }
         var access_token = getCookie('access_token');
         if (!access_token) {
-            console.error("No Access Token");
+          window.location.href="http://localhost:3000/auth/google";
         } else {
           var matches = access_token.match(/^s:(.+?)\./);
           if (!matches) {
-            console.error("Not correct Access Token");
+            window.location.href="http://localhost:3000/auth/google";
           } else {
             this.access_token = matches[1];
             console.log("Access Token: " + this.access_token);

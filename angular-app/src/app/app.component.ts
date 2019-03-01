@@ -23,6 +23,10 @@ import $ from 'jquery';
 export class AppComponent implements AfterViewInit {
   title = 'app works!';
 
+  logout() {
+    window.location.href="http://localhost:3000/auth/logout";
+  }
+
   ngAfterViewInit() {
     $('.nav a').on('click', function(){
       $('.nav').find('.active').removeClass('active');

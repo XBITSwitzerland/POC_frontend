@@ -41,7 +41,7 @@ export class EinsatzstelleComponent implements OnInit {
   beruf = new FormControl('', Validators.required);
   ausbildner = new FormControl('', Validators.required);
 
-  constructor(public serviceEinsatzstelle: EinsatzstelleService, fb: FormBuilder) {
+  constructor(public serviceEinsatzstelle: EinsatzstelleService, fb: FormBuilder, private router: Router) {
     this.myForm = fb.group({
       id: this.id,
       langBezeichnung: this.langBezeichnung,
@@ -55,6 +55,36 @@ export class EinsatzstelleComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAll();
+    this.checkCookie();
+  }
+
+  checkCookie() : void {
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+          }
+      }
+      return "";
+  }
+  var access_token = getCookie('access_token');
+  if (!access_token) {
+    window.location.href="http://localhost:3000/auth/google";
+  } else {
+    var matches = access_token.match(/^s:(.+?)\./);
+    if (!matches) {
+      window.location.href="http://localhost:3000/auth/google";
+    } else {
+      console.log("Correct Access Token");
+    }
+    }
   }
 
   loadAll(): Promise<any> {
